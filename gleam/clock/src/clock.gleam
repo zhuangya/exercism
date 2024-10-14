@@ -1,39 +1,36 @@
 import gleam/int
-import gleam/result
 import gleam/string
 
 pub type Clock {
   Clock(minutes: Int)
 }
 
-fn modulo(a: Int) -> Int {
-  a
-  |> int.modulo(24 * 60)
-  |> result.unwrap(0)
-}
-
 pub fn create(hour hour: Int, minute minute: Int) -> Clock {
-  { hour * 60 + minute }
-  |> int.modulo(24 * 60)
-  |> result.unwrap(0)
-  |> Clock
-}
+  let total_minutes = { hour * 60 } + minute
 
-pub fn add(clock: Clock, minutes minutes: Int) -> Clock {
-  Clock(minutes: clock.minutes + minutes)
-}
+  let a_day = 24 * 60
 
-pub fn subtract(clock: Clock, minutes minutes: Int) -> Clock {
-  let delta = clock.minutes - modulo(minutes)
-
-  case delta {
-    _ if delta < 0 -> Clock(minutes: 60 * 24 + delta)
-    _ -> Clock(minutes: delta)
+  case total_minutes {
+    tm if tm < 0 -> Clock(a_day + { tm % a_day })
+    tm if tm > 0 -> Clock(tm % a_day)
+    _ -> Clock(0)
   }
 }
 
+fn create_by_minutes(minutes) -> Clock {
+  create(0, minutes)
+}
+
+pub fn add(clock: Clock, minutes minutes: Int) -> Clock {
+  create_by_minutes(clock.minutes + minutes)
+}
+
+pub fn subtract(clock: Clock, minutes minutes: Int) -> Clock {
+  create_by_minutes(clock.minutes - minutes)
+}
+
 pub fn display(clock: Clock) -> String {
-  let h = clock.minutes / 60 % 24
+  let h = clock.minutes / 60
   let m = clock.minutes % 60
 
   format(h) <> ":" <> format(m)
