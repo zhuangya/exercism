@@ -10,12 +10,10 @@ pub fn slices(input: String, size: Int) -> Result(List(String), Error) {
   use <- guard(size == 0, Error(SliceLengthZero))
   use <- guard(size > input_length, Error(SliceLengthTooLarge))
 
-  Ok(
-    input
-    |> string.to_graphemes()
-    |> list.window(size)
-    |> list.map(fn(x) { string.join(x, "") }),
-  )
+  input
+  |> string.to_graphemes()
+  |> list.window(size)
+  |> list.try_map(fn(x) { Ok(string.join(x, "")) })
 }
 
 pub type Error {
