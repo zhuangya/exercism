@@ -1,6 +1,3 @@
-import gleam/bool.{guard}
-import gleam/list
-
 pub type Color {
   Black
   Brown
@@ -30,11 +27,8 @@ fn resistor_value(color: Color) -> Int {
 }
 
 pub fn value(colors: List(Color)) -> Result(Int, Nil) {
-  let inspecting_resistors = colors |> list.take(2)
-
-  use <- guard(list.length(inspecting_resistors) < 2, Error(Nil))
-
-  inspecting_resistors
-  |> list.map(resistor_value)
-  |> list.reduce(fn(acc, v) { acc * 10 + v })
+  case colors {
+    [a, b, ..] -> Ok(resistor_value(a) * 10 + resistor_value(b))
+    _ -> Error(Nil)
+  }
 }
