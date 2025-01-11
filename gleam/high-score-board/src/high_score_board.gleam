@@ -1,5 +1,5 @@
+import gleam/dict.{type Dict, drop, fold, has_key, insert, upsert}
 import gleam/option.{None, Some}
-import gleam/dict.{type Dict, drop, fold, has_key, insert, update}
 
 pub type ScoreBoard =
   Dict(String, Int)
@@ -30,7 +30,7 @@ pub fn update_score(
   case has_key(score_board, player) {
     True ->
       score_board
-      |> update(player, fn(score) {
+      |> upsert(player, fn(score) {
         case score {
           Some(i) -> i + points
           None -> points
