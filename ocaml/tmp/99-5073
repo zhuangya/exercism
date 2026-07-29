@@ -1,0 +1,1 @@
+/Users/nos/Developer/personal/exercism/ocaml/armstrong-numbers/armstrong_numbers.ml:1:1,1,Implementation stub — replace with armstrong number logic using float log10 for digit count, then iterate via mod 10 to sum powered digits
