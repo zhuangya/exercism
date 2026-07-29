@@ -1,2 +1,9 @@
 node_modules/
 build/
+
+# OCaml
+_build/
+*.install
+.merlin
+*.byte
+*.native

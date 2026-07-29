@@ -1,0 +1,22 @@
+{
+  "authors": [
+    "therealowenrees"
+  ],
+  "files": {
+    "solution": [
+      "armstrong_numbers.ml"
+    ],
+    "test": [
+      "test.ml"
+    ],
+    "example": [
+      ".meta/example.ml"
+    ],
+    "editor": [
+      "armstrong_numbers.mli"
+    ]
+  },
+  "blurb": "Determine if a number is an Armstrong number.",
+  "source": "Wikipedia",
+  "source_url": "https://en.wikipedia.org/wiki/Narcissistic_number"
+}
